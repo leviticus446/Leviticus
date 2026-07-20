@@ -1,4 +1,5 @@
 import './globals.css';
+import Navbar from '@/components/Navbar';
 
 export const metadata = {
   title: 'Leviticus 11 | We Serve You Clean Food',
@@ -23,7 +24,10 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body className="font-body bg-ivory text-forest">{children}</body>
+      <body className="font-body bg-ivory text-forest">
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }

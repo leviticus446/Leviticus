@@ -30,14 +30,14 @@ export default function HomePage() {
 
           <div className="mt-10 flex items-center justify-center gap-4 flex-wrap">
             <a
-              href="/menu"
-              className="border border-gold text-gold px-7 py-3 text-sm tracking-wide uppercase hover:bg-gold hover:text-charcoal transition-colors"
+              href="#menu"
+              className="bg-ivory text-charcoal px-7 py-3 text-sm tracking-wide uppercase hover:bg-gold transition-colors"
             >
               Lihat Menu
             </a>
             <a
               href="/reservasi"
-              className="bg-gold text-charcoal px-7 py-3 text-sm tracking-wide uppercase hover:bg-ivory transition-colors"
+              className="border border-gold text-gold px-7 py-3 text-sm tracking-wide uppercase hover:bg-gold hover:text-charcoal transition-colors"
             >
               Reservasi
             </a>
@@ -45,7 +45,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-24 px-6 md:px-16 bg-ivory">
+      <section id="menu" className="py-24 px-6 md:px-16 bg-ivory scroll-mt-16">
         <div className="text-center mb-14">
           <p className="text-gold text-xs tracking-widest2 uppercase mb-3">Signature</p>
           <h2 className="font-display text-4xl md:text-5xl text-forest">Menu Unggulan</h2>
@@ -59,7 +59,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-24 px-6 md:px-16 bg-white">
+      <section id="cerita" className="py-24 px-6 md:px-16 bg-white scroll-mt-16">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-12 items-center">
           <CornerFrame className="overflow-hidden rounded-sm">
             <div
@@ -87,7 +87,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-24 px-6 md:px-16 bg-ivory">
+      <section id="galeri" className="py-24 px-6 md:px-16 bg-ivory scroll-mt-16">
         <div className="text-center mb-14">
           <p className="text-gold text-xs tracking-widest2 uppercase mb-3">Ambiance</p>
           <h2 className="font-display text-4xl md:text-5xl text-forest">Galeri Suasana</h2>
@@ -105,7 +105,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <footer className="bg-charcoal text-ivory py-16 px-6 md:px-16">
+      <footer id="kontak" className="bg-charcoal text-ivory py-16 px-6 md:px-16 scroll-mt-16">
         <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-10">
           <div>
             <h3 className="font-display text-2xl text-gold mb-3">LEVITICUS 11</h3>
