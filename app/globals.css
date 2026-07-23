@@ -10,3 +10,24 @@ body {
   background-color: #F6F1E7;
   color: #2F3D2C;
 }
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.gold-shimmer-text {
+  background: linear-gradient(90deg, #B8935A 0%, #F1DDB0 50%, #B8935A 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 2.2s linear infinite;
+}
+
+@keyframes letterSpacingIn {
+  from { letter-spacing: -0.05em; opacity: 0; }
+  to { letter-spacing: 0.05em; opacity: 1; }
+}
+.tracking-anim {
+  animation: letterSpacingIn 1s ease-out forwards;
+}

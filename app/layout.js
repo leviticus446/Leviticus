@@ -1,5 +1,6 @@
 import './globals.css';
 import Navbar from '@/components/Navbar';
+import LoadingScreen from '@/components/LoadingScreen';
 
 export const metadata = {
   title: 'Leviticus 11 | We Serve You Clean Food',
@@ -32,6 +33,7 @@ export default function RootLayout({ children }) {
         <meta name="theme-color" content="#262420" />
       </head>
       <body className="font-body bg-ivory text-forest">
+        <LoadingScreen />
         <Navbar />
         {children}
       </body>
