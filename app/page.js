@@ -92,17 +92,17 @@ export default async function HomePage() {
           <GoldRule className="mt-6" />
         </div>
 
-        <Carousel3D
-          items={menuItems}
-          renderItem={(item) => (
+        <Carousel3D>
+          {menuItems.map((item) => (
             <ProductCard
+              key={item.id}
               name={item.name}
               price={item.price}
               image={item.image_urls?.[0] || '/images/dish-1.jpg'}
               description={item.description}
             />
-          )}
-        />
+          ))}
+        </Carousel3D>
       </section>
 
       {/* ================= CERITA KITA ================= */}
@@ -135,15 +135,15 @@ export default async function HomePage() {
           <GoldRule className="mt-6" />
         </div>
 
-        <Carousel3D
-          items={galleryImages.map((img, i) => ({ id: i, img }))}
-          renderItem={(item) => (
+        <Carousel3D>
+          {galleryImages.map((img, i) => (
             <div
+              key={i}
               className="aspect-[4/5] bg-cover bg-center rounded-sm"
-              style={{ backgroundImage: `url(${item.img})` }}
+              style={{ backgroundImage: `url(${img})` }}
             />
-          )}
-        />
+          ))}
+        </Carousel3D>
       </section>
 
       {/* ================= FOOTER ================= */}

@@ -1,11 +1,13 @@
 'use client';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, Children } from 'react';
 
 // Efek "coverflow": kartu tengah tegak & tajam, kartu samping miring & pudar.
-// Discroll horizontal (snap), bisa di-geser jari di HP.
-export default function Carousel3D({ items, renderItem }) {
+// PENTING: komponen ini nerima `children` (React element jadi), BUKAN function
+// renderItem — karena function gak boleh dikirim dari Server Component ke Client Component.
+export default function Carousel3D({ children }) {
   const trackRef = useRef(null);
   const cardRefs = useRef([]);
+  const items = Children.toArray(children);
 
   useEffect(() => {
     const track = trackRef.current;
@@ -36,7 +38,7 @@ export default function Carousel3D({ items, renderItem }) {
       track.removeEventListener('scroll', updateTilt);
       window.removeEventListener('resize', updateTilt);
     };
-  }, [items]);
+  }, [items.length]);
 
   return (
     <div
@@ -44,13 +46,13 @@ export default function Carousel3D({ items, renderItem }) {
       className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 px-[12%] md:px-[20%]"
       style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
     >
-      {items.map((item, i) => (
+      {items.map((child, i) => (
         <div
-          key={item.id || i}
+          key={i}
           ref={(el) => (cardRefs.current[i] = el)}
           className="snap-center shrink-0 w-[72%] sm:w-[50%] md:w-[32%] transition-transform duration-150 will-change-transform"
         >
-          {renderItem(item)}
+          {child}
         </div>
       ))}
     </div>
