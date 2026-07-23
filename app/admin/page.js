@@ -5,6 +5,31 @@ export default function AdminPage() {
   const [token, setToken] = useState('');
   const [unlocked, setUnlocked] = useState(false);
   const [tab, setTab] = useState('produk');
+  const [checking, setChecking] = useState(true);
+
+  useEffect(() => {
+    const saved = localStorage.getItem('lev11_admin_token');
+    if (saved) {
+      setToken(saved);
+      setUnlocked(true);
+    }
+    setChecking(false);
+  }, []);
+
+  function handleLogin() {
+    localStorage.setItem('lev11_admin_token', token);
+    setUnlocked(true);
+  }
+
+  function handleLogout() {
+    localStorage.removeItem('lev11_admin_token');
+    setToken('');
+    setUnlocked(false);
+  }
+
+  if (checking) {
+    return <main className="min-h-screen bg-ivory pt-16" />; // hindari kedip form login sebelum cek localStorage
+  }
 
   if (!unlocked) {
     return (
@@ -13,7 +38,7 @@ export default function AdminPage() {
           <h1 className="font-display text-2xl text-forest mb-4">Admin Leviticus 11</h1>
           <input type="password" placeholder="Admin token" className="w-full border p-2 rounded mb-3"
             value={token} onChange={(e) => setToken(e.target.value)} />
-          <button className="w-full bg-forest text-ivory py-2 rounded" onClick={() => setUnlocked(true)}>
+          <button className="w-full bg-forest text-ivory py-2 rounded" onClick={handleLogin}>
             Masuk
           </button>
         </div>
@@ -29,7 +54,12 @@ export default function AdminPage() {
 
   return (
     <main className="min-h-screen bg-ivory p-6 md:p-10 pt-24">
-      <h1 className="font-display text-3xl text-forest mb-6">Kelola Website</h1>
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="font-display text-3xl text-forest">Kelola Website</h1>
+        <button onClick={handleLogout} className="text-sm text-forest/50 hover:text-forest underline">
+          Logout
+        </button>
+      </div>
 
       <div className="flex gap-2 mb-8 border-b border-forest/10 overflow-x-auto">
         {tabs.map((t) => (
