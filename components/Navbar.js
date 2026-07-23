@@ -18,6 +18,7 @@ export default function Navbar() {
           LEVITICUS 11
         </a>
 
+        {/* Menu desktop */}
         <nav className="hidden md:flex items-center gap-8">
           {links.map((l) => (
             <a
@@ -29,6 +30,12 @@ export default function Navbar() {
             </a>
           ))}
           <a
+            href="/admin"
+            className="text-ivory/50 text-xs tracking-wide hover:text-gold transition-colors"
+          >
+            Admin
+          </a>
+          <a
             href="/reservasi"
             className="border border-gold text-gold px-5 py-2 text-xs tracking-widest2 uppercase hover:bg-gold hover:text-charcoal transition-colors"
           >
@@ -36,6 +43,7 @@ export default function Navbar() {
           </a>
         </nav>
 
+        {/* Tombol hamburger mobile */}
         <button
           onClick={() => setOpen(!open)}
           aria-label="Buka menu"
@@ -47,6 +55,7 @@ export default function Navbar() {
         </button>
       </div>
 
+      {/* Menu mobile dropdown */}
       {open && (
         <nav className="md:hidden bg-charcoal border-t border-gold/20 px-6 py-6 flex flex-col gap-5">
           {links.map((l) => (
@@ -59,6 +68,13 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
+          <a
+            href="/admin"
+            onClick={() => setOpen(false)}
+            className="text-ivory/50 text-sm tracking-wide"
+          >
+            Admin
+          </a>
           <a
             href="/reservasi"
             className="border border-gold text-gold text-center px-5 py-2 text-xs tracking-widest2 uppercase"
