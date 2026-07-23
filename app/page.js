@@ -46,19 +46,20 @@ export default async function HomePage() {
       {/* ================= HERO ================= */}
       <section className="relative h-[100svh] min-h-[560px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: "url('/images/hero.jpg')" }} />
-        <div className="absolute inset-0 bg-gradient-to-b from-charcoal/60 via-charcoal/30 to-charcoal/70" />
+        <div className="absolute inset-0 bg-charcoal/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-charcoal/80 via-charcoal/55 to-charcoal/85" />
 
         <div className="relative z-10 text-center px-6">
           <GoldRule className="mb-6" />
           <h1 className="font-display text-6xl md:text-7xl text-ivory tracking-wide">LEVITICUS 11</h1>
-          <p className="mt-4 text-xs md:text-sm tracking-widest2 uppercase text-gold">We Serve You Clean Food</p>
+          <p className="mt-4 text-xs md:text-sm tracking-widest2 uppercase text-gold" style={{ textShadow: '0 1px 8px rgba(0,0,0,0.6)' }}>We Serve You Clean Food</p>
           <GoldRule className="mt-6" />
 
           <div className="mt-10 flex items-center justify-center gap-4 flex-wrap">
             <a href="#menu" className="bg-ivory text-charcoal px-7 py-3 text-sm tracking-wide uppercase hover:bg-gold transition-colors">
               Lihat Menu
             </a>
-            <a href="/reservasi" className="border border-gold text-gold px-7 py-3 text-sm tracking-wide uppercase hover:bg-gold hover:text-charcoal transition-colors">
+            <a href="/reservasi" className="border border-gold bg-charcoal/60 text-gold px-7 py-3 text-sm tracking-wide uppercase hover:bg-gold hover:text-charcoal transition-colors">
               Reservasi
             </a>
           </div>
