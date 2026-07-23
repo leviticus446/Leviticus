@@ -43,14 +43,14 @@ export default function Carousel3D({ children }) {
   return (
     <div
       ref={trackRef}
-      className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 px-[12%] md:px-[20%]"
+      className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 px-8 md:px-24"
       style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
     >
       {items.map((child, i) => (
         <div
           key={i}
           ref={(el) => (cardRefs.current[i] = el)}
-          className="snap-center shrink-0 w-[72%] sm:w-[50%] md:w-[32%] transition-transform duration-150 will-change-transform"
+          className="snap-center shrink-0 w-4/5 sm:w-1/2 md:w-1/3 transition-transform duration-150 will-change-transform"
         >
           {child}
         </div>

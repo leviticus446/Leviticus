@@ -2,10 +2,10 @@
 import { useState } from 'react';
 
 const links = [
-  { href: '#menu', label: 'Menu' },
-  { href: '#cerita', label: 'Cerita Kita' },
-  { href: '#galeri', label: 'Galeri' },
-  { href: '#kontak', label: 'Kontak' },
+  { href: '/#menu', label: 'Menu' },
+  { href: '/#cerita', label: 'Cerita Kita' },
+  { href: '/#galeri', label: 'Galeri' },
+  { href: '/#kontak', label: 'Kontak' },
 ];
 
 export default function Navbar() {
