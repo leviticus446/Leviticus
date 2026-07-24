@@ -90,6 +90,18 @@ export async function POST(req) {
   const chatId = String(message.chat.id);
   const text = message.text || '';
 
+  if (text.trim() === '/start' || text.trim().startsWith('/start ')) {
+    await sendTelegramMessage(
+      chatId,
+      `👋 Halo! Ini bot admin toko <b>Leviticus 11</b>.\n\n` +
+      `Bot ini menghubungkan kamu (penjual) dengan pembeli yang chat lewat website.\n\n` +
+      `Kalau kamu penjual/admin toko, daftar dulu dengan kirim:\n` +
+      `<code>/register KODE_RAHASIA</code>\n\n` +
+      `(kode rahasianya minta ke yang pegang admin panel website)`
+    );
+    return Response.json({ ok: true });
+  }
+
   if (text.startsWith('/register')) {
     const parts = text.split(' ');
     const providedSecret = parts[1];
