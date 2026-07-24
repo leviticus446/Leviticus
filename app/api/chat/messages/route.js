@@ -6,12 +6,13 @@ export async function GET(req) {
   if (!sessionId) return Response.json({ error: 'sessionId wajib diisi' }, { status: 400 });
 
   const db = supabaseAdmin();
-  const { data, error } = await db
+  const { data: session } = await db.from('chat_sessions').select('status').eq('id', sessionId).single();
+  const { data: messages, error } = await db
     .from('chat_messages')
     .select('*')
     .eq('session_id', sessionId)
     .order('created_at', { ascending: true });
 
   if (error) return Response.json({ error: error.message }, { status: 500 });
-  return Response.json({ messages: data });
+  return Response.json({ status: session?.status || 'unknown', messages });
 }

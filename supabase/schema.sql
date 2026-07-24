@@ -91,3 +91,12 @@ insert into site_content (key, value) values
   ('showcase_video_url', 'null'),
   ('showcase_backdrop_image', '"/images/hero.jpg"')
 on conflict (key) do nothing;
+
+-- Kontak yang bisa diedit admin (WA, telepon) — nambah ke site_content yang udah ada
+insert into site_content (key, value) values
+  ('contact_whatsapp', '"6281281232311"'),
+  ('contact_phone', '"0812-8123-2311"')
+on conflict (key) do nothing;
+
+-- Username Telegram admin (buat dicantumin di pesan penolakan info sensitif)
+alter table telegram_admins add column if not exists telegram_username text;

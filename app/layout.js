@@ -1,6 +1,7 @@
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import LoadingScreen from '@/components/LoadingScreen';
+import ChatWidget from '@/components/ChatWidget';
 
 export const metadata = {
   title: 'Leviticus 11 | We Serve You Clean Food',
@@ -36,6 +37,7 @@ export default function RootLayout({ children }) {
         <LoadingScreen />
         <Navbar />
         {children}
+        <ChatWidget />
       </body>
     </html>
   );

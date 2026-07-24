@@ -167,7 +167,7 @@ export default async function HomePage() {
           <div>
             <p className="text-gold text-xs tracking-widest2 uppercase mb-3">Kontak</p>
             <ul className="text-ivory/60 text-sm space-y-1">
-              <li>0812-8123-2311</li>
+              <li>{content.contact_phone || '0812-8123-2311'}</li>
               <li>WhatsApp / Telegram</li>
             </ul>
           </div>

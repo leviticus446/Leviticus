@@ -50,6 +50,7 @@ export default function AdminPage() {
     { key: 'produk', label: 'Produk / Menu' },
     { key: 'galeri', label: 'Galeri & Video' },
     { key: 'cerita', label: 'Cerita Kita' },
+    { key: 'pengaturan', label: 'Pengaturan' },
   ];
 
   return (
@@ -73,6 +74,7 @@ export default function AdminPage() {
       {tab === 'produk' && <ProdukTab token={token} />}
       {tab === 'galeri' && <GaleriTab token={token} />}
       {tab === 'cerita' && <CeritaTab token={token} />}
+      {tab === 'pengaturan' && <PengaturanTab token={token} />}
     </main>
   );
 }
@@ -286,6 +288,95 @@ function CeritaTab({ token }) {
       <button onClick={save} className="w-full bg-forest text-ivory py-2 rounded">
         {saved ? 'Tersimpan ✓' : 'Simpan Perubahan'}
       </button>
+    </div>
+  );
+}
+
+// ============ TAB: PENGATURAN ============
+function PengaturanTab({ token }) {
+  const [wa, setWa] = useState('');
+  const [phone, setPhone] = useState('');
+  const [saved, setSaved] = useState(false);
+  const [admins, setAdmins] = useState([]);
+  const [newAdmin, setNewAdmin] = useState({ telegram_chat_id: '', telegram_username: '', name: '' });
+
+  useEffect(() => { load(); loadAdmins(); }, []);
+
+  async function load() {
+    const res = await fetch('/api/content');
+    const data = await res.json();
+    setWa(data.content?.contact_whatsapp || '');
+    setPhone(data.content?.contact_phone || '');
+  }
+
+  async function loadAdmins() {
+    const res = await fetch('/api/telegram-admins', { headers: { 'x-admin-token': token } });
+    const data = await res.json();
+    setAdmins(data.admins || []);
+  }
+
+  async function saveContact() {
+    await fetch('/api/content', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-token': token },
+      body: JSON.stringify({ updates: { contact_whatsapp: wa, contact_phone: phone } }),
+    });
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  }
+
+  async function addAdmin() {
+    if (!newAdmin.telegram_chat_id) return;
+    await fetch('/api/telegram-admins', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-admin-token': token },
+      body: JSON.stringify(newAdmin),
+    });
+    setNewAdmin({ telegram_chat_id: '', telegram_username: '', name: '' });
+    loadAdmins();
+  }
+
+  async function removeAdmin(id) {
+    await fetch(`/api/telegram-admins?id=${id}`, { method: 'DELETE', headers: { 'x-admin-token': token } });
+    loadAdmins();
+  }
+
+  return (
+    <div className="space-y-8 max-w-xl">
+      <div className="bg-white p-6 rounded-lg shadow space-y-3">
+        <h3 className="font-semibold text-forest mb-2">Kontak (WA & Telepon)</h3>
+        <input placeholder="Nomor WA (format: 62812xxxxxxx, tanpa +)" className="w-full border p-2 rounded"
+          value={wa} onChange={(e) => setWa(e.target.value)} />
+        <input placeholder="Nomor telepon tampilan (contoh: 0812-8123-2311)" className="w-full border p-2 rounded"
+          value={phone} onChange={(e) => setPhone(e.target.value)} />
+        <button onClick={saveContact} className="w-full bg-forest text-ivory py-2 rounded">
+          {saved ? 'Tersimpan ✓' : 'Simpan Kontak'}
+        </button>
+      </div>
+
+      <div className="bg-white p-6 rounded-lg shadow space-y-3">
+        <h3 className="font-semibold text-forest mb-2">Admin Telegram (penerima chat pembeli)</h3>
+        {admins.map((a) => (
+          <div key={a.id} className="flex items-center justify-between border rounded p-2 text-sm">
+            <div>
+              <p className="font-medium">{a.name || '(tanpa nama)'} {a.telegram_username ? `· ${a.telegram_username}` : ''}</p>
+              <p className="text-forest/50 text-xs">{a.telegram_chat_id}</p>
+            </div>
+            <button onClick={() => removeAdmin(a.id)} className="text-red-500 text-xs">Hapus</button>
+          </div>
+        ))}
+        <div className="pt-2 border-t space-y-2">
+          <input placeholder="Telegram Chat ID (dari /register di bot)" className="w-full border p-2 rounded text-sm"
+            value={newAdmin.telegram_chat_id} onChange={(e) => setNewAdmin({ ...newAdmin, telegram_chat_id: e.target.value })} />
+          <input placeholder="Username Telegram (contoh: @nama_admin)" className="w-full border p-2 rounded text-sm"
+            value={newAdmin.telegram_username} onChange={(e) => setNewAdmin({ ...newAdmin, telegram_username: e.target.value })} />
+          <input placeholder="Nama (buat tampilan doang)" className="w-full border p-2 rounded text-sm"
+            value={newAdmin.name} onChange={(e) => setNewAdmin({ ...newAdmin, name: e.target.value })} />
+          <button onClick={addAdmin} className="w-full bg-gold text-charcoal py-2 rounded text-sm">
+            Tambah Admin
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

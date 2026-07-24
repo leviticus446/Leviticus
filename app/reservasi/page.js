@@ -1,10 +1,24 @@
 import GoldRule from '@/components/GoldRule';
+import { supabasePublic } from '@/lib/supabaseClient';
 
 export const metadata = {
   title: 'Reservasi | Leviticus 11',
 };
 
-export default function ReservasiPage() {
+export const revalidate = 0;
+
+async function getContent() {
+  const { data } = await supabasePublic.from('site_content').select('key, value');
+  const content = {};
+  (data || []).forEach((row) => (content[row.key] = row.value));
+  return content;
+}
+
+export default async function ReservasiPage() {
+  const content = await getContent();
+  const phone = content.contact_phone || '0812-8123-2311';
+  const wa = content.contact_whatsapp || '6281281232311';
+
   return (
     <main className="min-h-screen pt-32 pb-24 px-6 bg-ivory">
       <div className="max-w-lg mx-auto text-center">
@@ -20,7 +34,7 @@ export default function ReservasiPage() {
         <div className="bg-white rounded-lg shadow p-6 space-y-4 text-left">
           <div>
             <p className="text-gold text-xs tracking-widest2 uppercase mb-1">Telepon / WhatsApp</p>
-            <a href="tel:081281232311" className="text-forest text-lg font-semibold">0812-8123-2311</a>
+            <a href={`tel:${phone.replace(/[^0-9]/g, '')}`} className="text-forest text-lg font-semibold">{phone}</a>
           </div>
           <div>
             <p className="text-gold text-xs tracking-widest2 uppercase mb-1">Jam Buka</p>
@@ -31,7 +45,7 @@ export default function ReservasiPage() {
             </ul>
           </div>
           <a
-            href="https://wa.me/6281281232311"
+            href={`https://wa.me/${wa}`}
             target="_blank"
             rel="noopener noreferrer"
             className="block text-center bg-forest text-ivory py-3 rounded uppercase text-sm tracking-wide"
